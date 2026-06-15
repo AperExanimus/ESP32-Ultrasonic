@@ -2,6 +2,8 @@
 
 A simple ultrasonic distance measurement script for the **M5Atom S3** using the HC-SR04 sensor. Built with Arduino IDE, this project uses no external dependencies beyond the core M5 libraries.
 
+https://docs.m5stack.com/en/core/AtomS3
+
 ## 📋 Requirements
 
 ### Software Prerequisites

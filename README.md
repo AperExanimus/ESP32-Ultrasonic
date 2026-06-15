@@ -1,22 +1,30 @@
-# ESP32-Ultrasonic
-Firmware to connect HC-SR04 ultrasonic sensors with various ESP32 boards.
+# M5Atom S3 Ultrasonic Distance Sensor
 
-Setup Instructions for Arduino IDE
+A simple ultrasonic distance measurement script for the **M5Atom S3** using the HC-SR04 sensor. Built with Arduino IDE, this project uses no external dependencies beyond the core M5 libraries.
 
-    Install Board Package
-        File → Preferences → Additional Board Manager URLs:
+## 📋 Requirements
 
+### Software Prerequisites
+Before uploading code, configure your Arduino IDE:
+
+1.  **Add ESP32 Board Support**
+    *   Open `File → Preferences`.
+    *   Paste this into **Additional Board Manager URLs**:
+        ```text
         https://espressif.github.io/arduino-esp32/package_esp32_index.json
+        ```
+    *   Go to `Tools → Board → Boards Manager`, search **"esp32"**, and install the latest version by **Espressif Systems**.
 
-        Tools → Board → Boards Manager → Search "esp32" → Install
+2.  **Install M5 Libraries**
+    *   Go to `Sketch → Include Library → Manage Libraries...`
+    *   Search and install these two libraries:
+        *   **M5Unified** (by M5Stack)
+        *   **M5GFX** (by M5Stack)
 
-    Install Required Libraries
-        Sketch → Include Library → Manage Libraries...
-        Search and install:
-            M5Unified
-            M5GFX
+3.  **Select Board & Port**
+    *   `Tools → Board → M5Stack → **M5Atom S3**`
+    *   `Tools → Port → [Your Device Port]` (e.g., `/dev/ttyUSB0` or `COM3`)
 
-    Select Board & Port
-        Tools → Board → M5Stack → M5Atom S3
-        Tools → Port → [Your Device Port]
+📜 License
 
+This project is licensed under the MIT License. See the LICENSE file for details.

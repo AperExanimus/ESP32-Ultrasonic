@@ -24,7 +24,7 @@ Before uploading code, configure your Arduino IDE:
         *   **M5GFX** (by M5Stack)
 
 3.  **Select Board & Port**
-    *   `Tools → Board → M5Stack → **M5Atom S3**`
+    *   `Tools → Board → M5Stack → **M5Atom S3 or M5StickC**`
     *   `Tools → Port → [Your Device Port]` (e.g., `/dev/ttyUSB0` or `COM3`)
 
 📜 License

@@ -1,6 +1,11 @@
-main/
-  MqttClient.hpp
-  MqttClient.cpp
-  PresencePublisher.hpp
-  PresencePublisher.cpp
-  app_main.cpp
+idf_component_register(
+    SRCS
+        "app_main.cpp"
+        "MqttClient.cpp"
+        "PresencePublisher.cpp"
+    INCLUDE_DIRS
+        "."
+    REQUIRES
+        mqtt
+        esp_event
+)

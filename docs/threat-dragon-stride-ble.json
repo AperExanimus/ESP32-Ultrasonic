@@ -1,0 +1,358 @@
+{
+  "version": "2.6.2",
+  "summary": {
+    "title": "M5StickC BLE STRIDE Practice Model",
+    "owner": "AperExanimus",
+    "description": "Minimal BLE-only STRIDE model for practice: Operator -> M5StickC -> BLE Gateway App",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "AperExanimus"
+      }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "BLE STRIDE diagram",
+        "diagramType": "STRIDE",
+        "placeholder": "Minimal Bluetooth threat model for practice",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.6.2",
+        "cells": [
+          {
+            "position": { "x": 80, "y": 220 },
+            "size": { "width": 120, "height": 60 },
+            "attrs": {
+              "text": { "text": "Operator" },
+              "body": { "stroke": "#333333", "strokeWidth": 1.5, "strokeDasharray": null }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "ports": {
+              "groups": {
+                "top": { "position": "top", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "right": { "position": "right", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "bottom": { "position": "bottom", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "left": { "position": "left", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } }
+              },
+              "items": [
+                { "group": "top", "id": "op-top" },
+                { "group": "right", "id": "op-right" },
+                { "group": "bottom", "id": "op-bottom" },
+                { "group": "left", "id": "op-left" }
+              ]
+            },
+            "id": "actor-operator",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Operator",
+              "description": "Authorized conference operator",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": { "x": 300, "y": 200 },
+            "size": { "width": 130, "height": 90 },
+            "attrs": {
+              "text": { "text": "M5StickC Device" },
+              "body": { "stroke": "red", "strokeWidth": 2.5, "strokeDasharray": null }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 2,
+            "ports": {
+              "groups": {
+                "top": { "position": "top", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "right": { "position": "right", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "bottom": { "position": "bottom", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "left": { "position": "left", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } }
+              },
+              "items": [
+                { "group": "top", "id": "dev-top" },
+                { "group": "right", "id": "dev-right" },
+                { "group": "bottom", "id": "dev-bottom" },
+                { "group": "left", "id": "dev-left" }
+              ]
+            },
+            "id": "proc-m5stickc",
+            "data": {
+              "type": "tm.Process",
+              "name": "M5StickC Device",
+              "description": "ESP32 firmware sends BLE alert payload",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "thr-s-01",
+                  "title": "Spoofed BLE central",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Unauthorized phone/laptop impersonates trusted BLE gateway and receives device data.",
+                  "mitigation": "Use bonded pairing, whitelist gateway identity, reject unpaired peers.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": ""
+                },
+                {
+                  "id": "thr-t-01",
+                  "title": "Tampered BLE payload",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Attacker alters payload/commands over BLE, causing false alert content.",
+                  "mitigation": "Sign messages (HMAC) with nonce/timestamp and verify before use.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                },
+                {
+                  "id": "thr-r-01",
+                  "title": "No traceable alert origin",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "Cannot prove which device/session emitted an alert.",
+                  "mitigation": "Include device ID and monotonic counter; log timestamped event IDs.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": ""
+                },
+                {
+                  "id": "thr-i-01",
+                  "title": "BLE metadata disclosure",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "Nearby sniffing reveals alert metadata or identifiers.",
+                  "mitigation": "Minimize sensitive fields; avoid PII; prefer encrypted BLE characteristics.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                },
+                {
+                  "id": "thr-d-01",
+                  "title": "BLE jamming / disconnect DoS",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "Interference or connection abuse prevents message delivery.",
+                  "mitigation": "Retry queue with backoff, reconnect limits, and manual fallback path.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": ""
+                },
+                {
+                  "id": "thr-e-01",
+                  "title": "Privilege escalation via debug/control characteristic",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Attacker accesses privileged BLE characteristic to trigger admin-only behavior.",
+                  "mitigation": "Split read/write roles, enforce authz checks per characteristic, disable debug in demo build.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "tampering": 1,
+                "repudiation": 1,
+                "informationDisclosure": 1,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 1
+              }
+            }
+          },
+          {
+            "position": { "x": 560, "y": 220 },
+            "size": { "width": 140, "height": 70 },
+            "attrs": {
+              "text": { "text": "BLE Gateway App" },
+              "body": { "stroke": "#333333", "strokeWidth": 1.5, "strokeDasharray": null }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 3,
+            "ports": {
+              "groups": {
+                "top": { "position": "top", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "right": { "position": "right", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "bottom": { "position": "bottom", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } },
+                "left": { "position": "left", "attrs": { "circle": { "r": 4, "magnet": true, "stroke": "#5F95FF", "strokeWidth": 1, "fill": "#fff", "style": { "visibility": "hidden" } } } }
+              },
+              "items": [
+                { "group": "top", "id": "gw-top" },
+                { "group": "right", "id": "gw-right" },
+                { "group": "bottom", "id": "gw-bottom" },
+                { "group": "left", "id": "gw-left" }
+              ]
+            },
+            "id": "proc-gateway",
+            "data": {
+              "type": "tm.Process",
+              "name": "BLE Gateway App",
+              "description": "Receives BLE packet and relays event",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": { "name": "block" },
+                "sourceMarker": { "name": "" },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 4,
+            "labels": [
+              {
+                "markup": [
+                  { "tagName": "ellipse", "selector": "labelBody" },
+                  { "tagName": "text", "selector": "labelText" }
+                ],
+                "attrs": {
+                  "labelText": { "text": "Trigger Event", "textAnchor": "middle", "textVerticalAnchor": "middle" },
+                  "labelBody": { "ref": "labelText", "refRx": "50%", "refRy": "60%", "fill": "#fff", "strokeWidth": 0 }
+                },
+                "position": { "distance": 0.5, "args": { "keepGradient": true, "ensureLegibility": true } }
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Trigger Event",
+              "description": "Operator initiates alert",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "flow-trigger",
+            "source": { "cell": "actor-operator", "port": "op-right" },
+            "target": { "cell": "proc-m5stickc", "port": "dev-left" },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": { "name": "block" },
+                "sourceMarker": { "name": "" },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 5,
+            "labels": [
+              {
+                "markup": [
+                  { "tagName": "ellipse", "selector": "labelBody" },
+                  { "tagName": "text", "selector": "labelText" }
+                ],
+                "attrs": {
+                  "labelText": { "text": "BLE Alert Payload", "textAnchor": "middle", "textVerticalAnchor": "middle" },
+                  "labelBody": { "ref": "labelText", "refRx": "50%", "refRy": "60%", "fill": "#fff", "strokeWidth": 0 }
+                },
+                "position": { "distance": 0.5, "args": { "keepGradient": true, "ensureLegibility": true } }
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "BLE Alert Payload",
+              "description": "Single BLE message sent to trusted gateway",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "BLE",
+              "threats": []
+            },
+            "id": "flow-ble",
+            "source": { "cell": "proc-m5stickc", "port": "dev-right" },
+            "target": { "cell": "proc-gateway", "port": "gw-left" },
+            "vertices": []
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 6,
+            "labels": [
+              {
+                "markup": [
+                  { "tagName": "ellipse", "selector": "labelBody" },
+                  { "tagName": "text", "selector": "labelText" }
+                ],
+                "attrs": {
+                  "labelText": { "text": "BLE Radio Boundary", "textAnchor": "middle", "textVerticalAnchor": "middle" },
+                  "labelBody": { "ref": "labelText", "refRx": "50%", "refRy": "60%", "fill": "#fff", "strokeWidth": 0 }
+                },
+                "position": { "distance": 0.5, "args": { "keepGradient": true, "ensureLegibility": true } }
+              }
+            ],
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "BLE Radio Boundary",
+              "description": "Untrusted RF environment at conference venue",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "boundary-ble",
+            "source": { "x": 240, "y": 140 },
+            "target": { "x": 730, "y": 340 },
+            "vertices": [
+              { "x": 260, "y": 120 },
+              { "x": 720, "y": 120 },
+              { "x": 740, "y": 350 },
+              { "x": 250, "y": 350 }
+            ]
+          }
+        ]
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "Security reviewer",
+    "threatTop": 6
+  }
+}

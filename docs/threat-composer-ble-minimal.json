@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "applicationInfo": {
+    "name": "M5StickC BLE STRIDE Practice",
+    "description": "Minimal BLE-focused threat model for practice. Scope: Operator -> M5StickC -> BLE Gateway."
+  },
+  "architecture": {
+    "image": "",
+    "description": "M5StickC device sends BLE alert payloads to a trusted gateway app in a conference environment."
+  },
+  "dataflow": {
+    "image": "",
+    "description": "- Operator triggers event on M5StickC\n- M5StickC sends BLE payload to gateway app\n- Trust boundary: BLE radio environment is untrusted"
+  },
+  "assumptions": [
+    {
+      "id": "a1f8f8c0-1111-4c44-9d66-111111111111",
+      "numericId": 1,
+      "displayOrder": 1,
+      "metadata": [],
+      "content": "BLE secure pairing is enabled and only approved gateway devices are paired."
+    }
+  ],
+  "mitigations": [
+    {
+      "id": "m1f8f8c0-2222-4c44-9d66-222222222222",
+      "numericId": 1,
+      "displayOrder": 1,
+      "metadata": [],
+      "content": "Require bonded BLE pairing and reject unpaired peers.",
+      "status": "mitigationIdentified"
+    }
+  ],
+  "assumptionLinks": [
+    {
+      "type": "Threat",
+      "assumptionId": "a1f8f8c0-1111-4c44-9d66-111111111111",
+      "linkedId": "t1f8f8c0-3333-4c44-9d66-333333333333"
+    }
+  ],
+  "mitigationLinks": [
+    {
+      "mitigationId": "m1f8f8c0-2222-4c44-9d66-222222222222",
+      "linkedId": "t1f8f8c0-3333-4c44-9d66-333333333333"
+    }
+  ],
+  "threats": [
+    {
+      "id": "t1f8f8c0-3333-4c44-9d66-333333333333",
+      "numericId": 1,
+      "displayOrder": 1,
+      "metadata": [
+        { "key": "Priority", "value": "High" },
+        { "key": "STRIDE", "value": ["S"] }
+      ],
+      "tags": ["BLE"],
+      "threatSource": "threat actor",
+      "prerequisites": "with BLE proximity to the conference demo area",
+      "threatAction": "impersonate the trusted BLE gateway",
+      "threatImpact": "unauthorized receipt of device payloads and possible relay of false data",
+      "impactedGoal": ["confidentiality", "integrity"],
+      "impactedAssets": ["BLE payload", "device-gateway trust relationship"],
+      "statement": "A threat actor with BLE proximity to the conference demo area can impersonate the trusted BLE gateway, which leads to unauthorized receipt of device payloads and possible relay of false data, resulting in reduced confidentiality and integrity of BLE payload and device-gateway trust relationship",
+      "status": "threatIdentified"
+    }
+  ]
+}

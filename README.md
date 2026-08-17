@@ -26,6 +26,11 @@ Before uploading code, configure your Arduino IDE:
 3.  **Select Board & Port**
     *   `Tools → Board → M5Stack → **M5Atom S3 or M5StickC**`
     *   `Tools → Port → [Your Device Port]` (e.g., `/dev/ttyUSB0` or `COM3`)
+  
+## Security / Threat Modeling Notes
+
+I am in the process of testing threat modeling with both OWASP Threat Dragon and AWS Threat Composer using this sensor project as a small ESP32 hardware case study. The documentation in `docs/` includes early threat-modeling practice artifacts. This is not a full production security assessment. 
+
 
 📜 License
 
